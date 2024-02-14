@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import com.hire10x.ProductService.model.ProductRequest;
 import com.hire10x.ProductService.model.ProductResponse;
 import com.hire10x.ProductService.service.ProductService;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -21,12 +21,14 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
+	 @PreAuthorize("hasAuthority('Admin')")
 	@PostMapping
 	public ResponseEntity<Long> addProduct(@RequestBody ProductRequest productRequest) {
 		long productId = productService.addProduct(productRequest);
 		return new ResponseEntity<>(productId, HttpStatus.CREATED);
 	}
 
+	 @PreAuthorize("hasAuthority('Admin') || hasAuthority('Customer') || hasAuthority('SCOPE_internal')")	 
 	@GetMapping("/{id}")
 	public ResponseEntity<ProductResponse> getProductById(@PathVariable("id") long productId) {
 		ProductResponse productResponse = productService.getProductById(productId);

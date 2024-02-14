@@ -83,6 +83,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis-reactive</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+<dependency>
+    <groupId>com.okta.spring</groupId>
+    <artifactId>okta-spring-boot-starter</artifactId>
+   <version>2.1.6</version>
+</dependency>
 
 	</dependencies>
 	<dependencyManagement>
@@ -109,6 +119,23 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			
+			<!-- JIB for making docker images and container from pom.xml it will pick credential from settings.xml --> 
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<configuration>
+					<from>
+						<image>openjdk:17</image>
+					</from>
+					<to>
+						<!-- image should be small letter imp-->
+						<image>registry.hub.docker.com/saiibm/cloudgateway</image>
+						<!-- <image>${docker.repository.host}/${project.artifactId}:${project.version}</image> -->
+						<tags>${project.version}</tags>
+					</to>
 				</configuration>
 			</plugin>
 		</plugins>

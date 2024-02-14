@@ -64,7 +64,54 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
-		</dependency>	
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.okta.spring</groupId>
+			<artifactId>okta-spring-boot-starter</artifactId>
+			<version>2.1.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+		</dependency>
+
+	<!--	<dependency>
+			<groupId>com.github.tomakehurst</groupId>
+			<artifactId>wiremock-jre8</artifactId>
+			<version>2.33.2</version>
+			<scope>test</scope>
+		</dependency>
+		 -->
+		 
+		 <!-- https://mvnrepository.com/artifact/org.wiremock/wiremock -->
+<!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock-standalone -->
+<dependency>
+    <groupId>com.github.tomakehurst</groupId>
+    <artifactId>wiremock-standalone</artifactId>
+    <version>3.0.0-beta-2</version>
+    <scope>test</scope>
+</dependency>
+
+
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
 	</dependencies>
 	<dependencyManagement>
@@ -91,6 +138,23 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			
+						<!-- JIB for making docker images and container from pom.xml it will pick credential from settings.xml --> 
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<configuration>
+					<from>
+						<image>openjdk:17</image>
+					</from>
+					<to>
+						<!-- image should be small letter imp-->
+						<image>registry.hub.docker.com/saiibm/orderservice</image>
+						<!-- <image>${docker.repository.host}/${project.artifactId}:${project.version}</image> -->
+						<tags>${project.version}</tags>
+					</to>
 				</configuration>
 			</plugin>
 		</plugins>

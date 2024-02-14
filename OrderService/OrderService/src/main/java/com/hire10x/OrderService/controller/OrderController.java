@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hire10x.OrderService.model.OrderRequest;
 import com.hire10x.OrderService.model.OrderResponse;
 import com.hire10x.OrderService.service.OrderService;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
@@ -24,6 +24,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @PreAuthorize("hasAuthority('Customer')")
     @PostMapping("/placeOrder")
     public ResponseEntity<Long> placeOrder(@RequestBody OrderRequest orderRequest) {
         long orderId = orderService.placeOrder(orderRequest);
@@ -31,6 +32,7 @@ public class OrderController {
         return new ResponseEntity<>(orderId, HttpStatus.OK);
     }
     
+    @PreAuthorize("hasAuthority('Admin') || hasAuthority('Customer')")
     @GetMapping("/{orderId}")
     public ResponseEntity<OrderResponse> getOrderDetails(@PathVariable long orderId) {
         OrderResponse orderResponse= orderService.getOrderDetails(orderId);

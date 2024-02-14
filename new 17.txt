@@ -1,0 +1,20 @@
+  
+FROM openjdk:17
+
+ARG JAR_FILE=target/*.jar
+
+COPY ${JAR_FILE} service-registry.jar
+
+ENTRYPOINT ["java", "-jar", "/service-registry.jar"]
+
+EXPOSE 8761
+
+
+C:\Chintu\Hire10x\Microservices\ConfigServer\ConfigServer>docker build -t sai/cloudgateway:0.0.1 .
+connecting micro services intrernally
+
+configserver: docker run -d -p9296:9296 -e EUREKA_SERVER_ADDRESS=http://host.docker.internal:8761/eureka --name configserver 403f235d351e
+cloudgateway: docker run -d -p9090:9090 -e CONFIG_SERVER_URL=http://host.docker.internal -e EUREKA_SERVER_ADDRESS=http://host.docker.internal:8761/eureka --name cloudgateway 77d54ede9f35
+
+docker tag ff3ad1110f66:0.0.1 saiibm/ff3ad1110f66:0.0.1
+docker push saiibm/sai/cloudgateway:0.0.1

@@ -51,7 +51,26 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+					<!-- JIB for making docker images and container from pom.xml it will pick credential from settings.xml --> 
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<configuration>
+					<from>
+						<image>openjdk:17</image>
+					</from>
+					<to>
+						<!-- image should be small letter imp-->
+						<image>registry.hub.docker.com/saiibm/configserver</image>
+						<!-- <image>${docker.repository.host}/${project.artifactId}:${project.version}</image> -->
+						<tags>${project.version}</tags>
+					</to>
+				</configuration>
+			</plugin>	
+			
 		</plugins>
+		
 	</build>
 
 </project>
